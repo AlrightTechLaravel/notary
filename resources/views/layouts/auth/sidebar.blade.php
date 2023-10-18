@@ -22,6 +22,29 @@
                     <i class="align-middle me-2 fas fa-fw fa-home"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
+            @hasrole('customer')
+            <li class="sidebar-item  {{ request()->route()->getName() == 'auth'? 'inactive': '' }}">
+                <a class="sidebar-link mt-2" href="{{ route('customer.index') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-file"></i> <span class="align-middle">Documents</span>
+                </a>
+            </li>
+            @endhasrole
+
+            @hasrole('notary')
+            <li class="sidebar-item  {{ request()->route()->getName() == 'auth'? 'inactive': '' }}">
+                <a class="sidebar-link mt-2" href="{{ route('notary.index') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-file"></i> <span class="align-middle">Documents</span>
+                </a>
+            </li>
+            @endhasrole
+
+            @hasrole('admin')
+            <li class="sidebar-item  {{ request()->route()->getName() == 'auth'? 'inactive': '' }}">
+                <a class="sidebar-link mt-2" href="{{ route('customer.index') }}">
+                    <i class="align-middle me-2 fas fa-fw fa-file"></i> <span class="align-middle">Documents</span>
+                </a>
+            </li>
+            @endhasrole
 
             @hasrole('admin')
                 <x-admin.sidebar />

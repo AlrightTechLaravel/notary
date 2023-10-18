@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -35,8 +36,8 @@ Auth::routes(['verify' => true, 'login' => false, 'register' => false]);
 
 Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
-Route::get('/user/signin', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/user/signin', [LoginController::class, 'login']);
+Route::get('/user/sign_in', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/user/sign_in', [LoginController::class, 'login']);
 
 Route::get('/user/signup', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/user/signup', [RegisterController::class, 'register']);
@@ -46,12 +47,39 @@ Route::group(
     function () {
         Route::get('', [HomeController::class, 'index'])->name('auth');
 
-        Route::get('my-profile', [UserController::class, 'editprofile'])->name('myprofile');
-        Route::put('edit-my-profile', [UserController::class, 'updatemyprofile'])->name('updatemyprofile');
+        Route::get('my-profile', [UserController::class, 'editProfile'])->name('myProfile');
+        Route::put('edit-my-profile', [UserController::class, 'updateMyProfile'])->name('updateMyProfile');
 
         // change password
         Route::get('/settings', [HomeController::class, 'changePassword'])->name('change_password');
         Route::post('/change-password/update', [HomeController::class, 'updatePassword'])->name('update_password');
+
+        // Customer dashboard
+
+        Route::controller(DocumentController::class)
+            ->prefix('customer/document/')
+            ->as('customer.')
+            ->group(function () {
+                Route::get('index', 'index')->name('index');
+                Route::get('create', 'create')->name('upload.document');
+                Route::post('store', 'store')->name('store.document');
+                // Route::get('show/{id}', 'show')->name('show.document');
+            });
+
+        // End Customer dashboard
+
+        // Notary dashboard
+
+        Route::controller(DocumentController::class)
+            ->prefix('notary/document/')
+            ->as('notary.')
+            ->group(function () {
+                Route::get('index', 'index')->name('index');
+                Route::get('edit/{id}', 'edit')->name('edit.document');
+                Route::post('update/{id}', 'update')->name('update.document');
+            });
+
+        // End Notary dashboard
 
         Route::group(
             ["middleware" => "role:admin"],

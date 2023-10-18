@@ -44,5 +44,5 @@
             </x-front.card>
         </div>
     </div>
-    
+
 </x-auth-layout>

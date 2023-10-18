@@ -8,4 +8,8 @@
         <x-user.pages.dashboard />
     @endhasrole
 
+    @hasrole('notary')
+        <x-user.pages.dashboard />
+    @endhasrole
+
 </x-auth-layout>

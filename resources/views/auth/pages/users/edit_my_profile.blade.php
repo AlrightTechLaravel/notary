@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <x-front.card>
-                    <form method="post" action="{{ route('updatemyprofile') }}" class="needs-validation" novalidate
+                    <form method="post" action="{{ route('updateMyProfile') }}" class="needs-validation" novalidate
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

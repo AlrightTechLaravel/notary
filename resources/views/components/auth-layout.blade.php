@@ -2,6 +2,7 @@
 @include('layouts.auth.sidebar')
 
 <div class="main">
+
     @include('layouts.auth.header')
 
     <main class="content">

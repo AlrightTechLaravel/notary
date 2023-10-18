@@ -12,7 +12,7 @@
                 <h5 class="card-title mb-0">dashboard</h5>
             </div>
             <div class="card-body">
-                admin dashboard
+                {{ auth()->user()->name }} dashboard
             </div>
         </x-front.card>
     </div>
